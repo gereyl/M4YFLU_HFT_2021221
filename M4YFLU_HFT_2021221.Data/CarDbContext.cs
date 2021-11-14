@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace M4YFLU_HFT_2021221.Data
 {
-    class CarDbContext : DbContext
+    public class CarDbContext : DbContext
     {
         public virtual DbSet<Car> Cars { get; set; }
 
