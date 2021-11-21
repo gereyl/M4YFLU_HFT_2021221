@@ -17,6 +17,6 @@ namespace M4YFLU_HFT_2021221.Models
         public string Name { get; set; }
 
         [NotMapped]
-        public virtual Car car { get; set; }
+        public virtual ICollection<Car> Cars { get; set; }
     }
 }
