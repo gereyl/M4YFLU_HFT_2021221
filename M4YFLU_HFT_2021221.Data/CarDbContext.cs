@@ -48,9 +48,6 @@ namespace M4YFLU_HFT_2021221.Data
 
             });
 
-
-
-
             #region creating brands
             Brand Bmw = new Brand() { Id = 1, Name = "BMW" };
             Brand Audi = new Brand() { Id = 2, Name = "Audi" };

@@ -19,7 +19,7 @@ namespace M4YFLU_HFT_2021221.Logic
 
         public void Create(Owner owner)
         {
-            if (owner.Name == "")
+            if (owner == null || owner.Name == "")
             {
                 throw new InvalidNameException("Invalid owner name!");
             }
@@ -45,5 +45,15 @@ namespace M4YFLU_HFT_2021221.Logic
         {
             ownerRepo.Update(owner);
         }
+
+        public IEnumerable<KeyValuePair<string, double>> AvarageCarPerOwner()
+        {
+            return from x in ownerRepo.GetAll()
+                   group x by x.Name into g
+                   select new KeyValuePair<string, double>
+                   (g.Key, g.Average(t => (double)t.Cars.Count));
+        }
+
+
     }
 }

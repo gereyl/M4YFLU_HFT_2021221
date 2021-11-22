@@ -13,7 +13,7 @@ namespace M4YFLU_HFT_2021221.Logic
         Car Read(int id);
         void Delete(int id);
         void Update(Car car);
-
+        public IEnumerable<Owner> OwnerWithTheMostExpensiveCar();
         IEnumerable<Car> GetAll();
 
 

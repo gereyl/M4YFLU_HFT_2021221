@@ -19,10 +19,11 @@ namespace M4YFLU_HFT_2021221.Logic
 
         public void Create(Car car)
         {
-            if (car.Model == "")
+            if (car == null || car.Model == "")
             {
                 throw new InvalidNameException("Invalid model name!");
             }
+            carRepo.Create(car);
         }
 
         public void Delete(int id)
@@ -44,5 +45,13 @@ namespace M4YFLU_HFT_2021221.Logic
         {
             carRepo.Update(car);
         }
+
+        public IEnumerable<Owner> OwnerWithTheMostExpensiveCar()
+        {
+            return (from x in carRepo.GetAll()
+                    orderby x.BasePrice descending
+                    select x.Owner).Take(1);
+        }
+
     }
 }

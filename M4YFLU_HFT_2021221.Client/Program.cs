@@ -1,4 +1,6 @@
-﻿using System;
+﻿using M4YFLU_HFT_2021221.Data;
+using System;
+using System.Linq;
 
 namespace M4YFLU_HFT_2021221.Client
 {
@@ -6,7 +8,13 @@ namespace M4YFLU_HFT_2021221.Client
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            CarDbContext db = new CarDbContext();
+
+            
+
+            var test = db.Cars.ToList();
+            ;
+
         }
     }
 }

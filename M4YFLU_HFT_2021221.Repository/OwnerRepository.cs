@@ -42,7 +42,6 @@ namespace M4YFLU_HFT_2021221.Repository
         {
             var upd = Read(owner.OwnerId);
             upd.Name = owner.Name;
-            upd.car = owner.car;
             db.SaveChanges();
         }
     }

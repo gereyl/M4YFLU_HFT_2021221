@@ -20,7 +20,7 @@ namespace M4YFLU_HFT_2021221.Logic
 
         public void Create(Brand brand)
         {
-            if (brand.Name == "")
+            if (brand == null || brand.Name == "")
             {
                 throw new InvalidNameException("Invalid brand name!");
             }
@@ -46,5 +46,12 @@ namespace M4YFLU_HFT_2021221.Logic
         {
             brandRepo.Update(brand);
         }
+
+        
+            
+
+
+
+
     }
 }

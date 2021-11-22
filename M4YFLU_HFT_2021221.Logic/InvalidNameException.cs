@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace M4YFLU_HFT_2021221.Logic
 {
-    class InvalidNameException : Exception
+    public class InvalidNameException : Exception
     {
         public InvalidNameException(string msg) : base(msg)
         {

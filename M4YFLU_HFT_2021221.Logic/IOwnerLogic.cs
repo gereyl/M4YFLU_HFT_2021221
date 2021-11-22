@@ -13,6 +13,7 @@ namespace M4YFLU_HFT_2021221.Logic
         Owner Read(int id);
         void Delete(int id);
         void Update(Owner car);
+        public IEnumerable<KeyValuePair<string, double>> AvarageCarPerOwner();
         IEnumerable<Owner> GetAll();
 
 
