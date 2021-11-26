@@ -1,3 +1,6 @@
+using M4YFLU_HFT_2021221.Data;
+using M4YFLU_HFT_2021221.Logic;
+using M4YFLU_HFT_2021221.Repository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -16,6 +19,17 @@ namespace M4YFLU_HFT_2021221.Endpoint
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddControllers();
+
+            services.AddTransient<ICarLogic, CarLogic>();
+            services.AddTransient<ICarRepository, CarRepository>();
+            services.AddTransient<IBrandLogic, BrandLogic>();
+            services.AddTransient<IBrandRepository, BrandRepository>();
+            services.AddTransient<IOwnerLogic, OwnerLogic>();
+            services.AddTransient<IOwnerRepository, OwnerRepository>();
+            services.AddTransient<CarDbContext, CarDbContext>();
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -30,10 +44,7 @@ namespace M4YFLU_HFT_2021221.Endpoint
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapGet("/", async context =>
-                {
-                    await context.Response.WriteAsync("Hello World!");
-                });
+                endpoints.MapControllers();
             });
         }
     }

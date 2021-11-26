@@ -1,6 +1,9 @@
-﻿using M4YFLU_HFT_2021221.Data;
+﻿using M4YFLU_HFT_2021221.Models;
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
+using M4YFLU_HFT_2021221.Client;
 
 namespace M4YFLU_HFT_2021221.Client
 {
@@ -8,12 +11,22 @@ namespace M4YFLU_HFT_2021221.Client
     {
         static void Main(string[] args)
         {
-            CarDbContext db = new CarDbContext();
+            System.Threading.Thread.Sleep(8000);
 
-            
+            RestService rest = new RestService("http://localhost:26250");
+            rest.Post<Brand>(new Brand()
+            {
+                Name = "Peugeot"
+            }, "brand");
 
-            var test = db.Cars.ToList();
+
+            var brands = rest.Get<Brand>("brand");
+            var cars = rest.Get<Car>("car");
+
+            IEnumerable<Owner> res = rest.GetSingle<IEnumerable<Owner>>("stat/ownerwiththemostexpensivecar");
+
             ;
+
 
         }
     }
