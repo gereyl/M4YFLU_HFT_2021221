@@ -179,15 +179,7 @@ namespace M4YFLU_HFT_2021221.Test
 
         }
 
-        public void AVGCarPerOwner()
-        {
-            var res = ownerLogic.AvarageCarPerOwner();
-
-            
-
-
-
-        }
+        
 
         
 
