@@ -47,8 +47,14 @@ namespace M4YFLU_HFT_2021221.Logic
             brandRepo.Update(brand);
         }
 
-        
-            
+
+        public Brand BrandWithTheMostCars()
+        {
+            return (from x in brandRepo.GetAll()
+                    orderby x.Cars descending
+                    select x).FirstOrDefault();
+
+        }
 
 
 

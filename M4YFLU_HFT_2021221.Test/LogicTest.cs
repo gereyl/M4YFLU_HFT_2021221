@@ -135,7 +135,7 @@ namespace M4YFLU_HFT_2021221.Test
             mockCarRepo.Setup(m => m.GetAll()).Returns(testCars);
             mockOwnerRepo.Setup(m => m.GetAll()).Returns(testOwners);
 
-            //it.isany elfogad adott tipusbol barmit, es a returns resz utan anonim / lambda kifejezes , visszaadja a megfelelo elemet 
+            
             mockBrandRepo.Setup(m => m.Read(It.IsAny<int>())).Returns((int i) => testBrands.Where(x => x.Id.Equals(i)).FirstOrDefault());
             mockCarRepo.Setup(m => m.Read(It.IsAny<int>())).Returns((int i) => testCars.Where(x => x.Id.Equals(i)).FirstOrDefault());
             mockOwnerRepo.Setup(m => m.Read(It.IsAny<int>())).Returns((int i) => testOwners.Where(x => x.OwnerId.Equals(i)).FirstOrDefault());
@@ -153,14 +153,14 @@ namespace M4YFLU_HFT_2021221.Test
         {
             Car testCar = new Car() { Id = 15, OwnerId = 1, BasePrice = 154312, BrandId = 3, Model = "test" };
             carLogic.Create(testCar);
-            mockCarRepo.Verify(m => m.Create(It.IsAny<Car>()), Times.Once); // ez a tenyleges mock ellenorzes, mock teszt | leellenorzi h az adott metodus (create) a megfelelo parameterrel lefutott a megadott mennyisegszer (itt 1x)
+            mockCarRepo.Verify(m => m.Create(It.IsAny<Car>()), Times.Once); 
 
         }
 
         [Test]
         public void CreateWrongBrand()
         {
-            Assert.Throws<InvalidNameException>(() => brandLogic.Create(null)); // assertet akkor hasznaljuk ha a tesztelni akart metodus eredmenyet ossze akarjuk hasonlitani (az elvart erteket es a tenyleges erteket)
+            Assert.Throws<InvalidNameException>(() => brandLogic.Create(null));
             mockBrandRepo.Verify(m => m.Create(It.IsAny<Brand>()), Times.Never);
 
         }
@@ -179,9 +179,22 @@ namespace M4YFLU_HFT_2021221.Test
 
         }
 
-        
+        [Test]
+        public void BrandWithTheMostCars()
+        {
+            Brand res = brandLogic.BrandWithTheMostCars();
 
-        
+            Brand exp = new Brand()
+            {
+                Name = "BMW",
+                Id = 1,
+            };
+
+            Assert.That(res, Is.EqualTo(exp));
+        }
+
+
+
 
 
 
