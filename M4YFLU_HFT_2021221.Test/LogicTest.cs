@@ -18,9 +18,11 @@ namespace M4YFLU_HFT_2021221.Test
         Mock<ICarRepository> mockCarRepo;
         Mock<IOwnerRepository> mockOwnerRepo;
 
-        ICarLogic carLogic;
-        IBrandLogic brandLogic;
-        IOwnerLogic ownerLogic;
+        CarLogic carLogic;
+        BrandLogic brandLogic;
+        OwnerLogic ownerLogic;
+
+
 
         [SetUp]
         public void SetUp()
@@ -29,116 +31,146 @@ namespace M4YFLU_HFT_2021221.Test
             mockCarRepo = new Mock<ICarRepository>(MockBehavior.Loose);
             mockOwnerRepo = new Mock<IOwnerRepository>(MockBehavior.Loose);
 
-            var testBrands = new List<Brand>()
-            {
-            new Brand() { Id = 1, Name = "BMW" },
-             new Brand() { Id = 2, Name = "Audi" },
-             new Brand() { Id = 3, Name = "Mercedes" },
-             new Brand() { Id = 4, Name = "Lada" },
-             new Brand() { Id = 5, Name = "Volkswagen" }
-            }.AsQueryable();
+            //var testBrands = new List<Brand>()
+            //{
+            Brand brand1 = new Brand() { Id = 1, Name = "BMW" };
+            Brand brand2 = new Brand() { Id = 2, Name = "Audi" };
+            Brand brand3 = new Brand() { Id = 3, Name = "Mercedes" };
+            Brand brand4 = new Brand() { Id = 4, Name = "Lada" };
+            Brand brand5 = new Brand() { Id = 5, Name = "Volkswagen" };
+            List<Brand> brands = new List<Brand>() { brand1, brand2, brand3, brand4, brand5 };
+            // }.AsQueryable();
+
+            //var testOwners = new List<Owner>()
+            //{
+            Owner owner1 = new Owner() { OwnerId = 1, Name = "Feri" };
+            Owner owner2 = new Owner() { OwnerId = 2, Name = "John" };
+            Owner owner3 = new Owner() { OwnerId = 3, Name = "Mary" };
+            Owner owner4 = new Owner() { OwnerId = 4, Name = "Luigi" };
+            Owner owner5 = new Owner() { OwnerId = 5, Name = "Garen" };
+            List<Owner> owners = new List<Owner>() { owner1, owner2, owner3, owner4, owner5 };
+            //}.AsQueryable();
+
 
             var testCars = new List<Car>()
             {
                  new Car()
             {
                 Id = 1,
-                BrandId = 1,
+                BrandId = brand1.Id,
+                Brand = brand1,
                 Model = "116d",
                 BasePrice = 10000,
-                OwnerId = 1
+                OwnerId = owner1.OwnerId,
+                Owner = owner1
             },
              new Car()
             {
                 Id = 2,
-                BrandId = 2,
+                BrandId = brand2.Id,
+                Brand = brand2,
                 Model = "A3",
                 BasePrice = 20000,
-                OwnerId = 2
+                OwnerId = owner2.OwnerId,
+                Owner = owner2
             },
              new Car()
             {
                 Id = 3,
-                BrandId = 3,
+                BrandId = brand3.Id,
+                Brand = brand3,
                 Model = "SL200",
                 BasePrice = 200000,
-                OwnerId = 3
+                OwnerId = owner3.OwnerId,
+                Owner = owner3
             },
              new Car()
             {
                 Id = 4,
-                BrandId = 5,
+                BrandId = brand5.Id,
+                Brand = brand5,
                 Model = "Golf 7 GTI",
                 BasePrice = 45000,
-                OwnerId = 3
+                OwnerId = owner3.OwnerId,
+                Owner = owner3
             },
              new Car()
             {
                 Id = 5,
-                BrandId = 4,
+                BrandId = brand4.Id,
+                Brand = brand4,
                 Model = "1200",
                 BasePrice = 1000,
-                OwnerId = 4
+                OwnerId = owner4.OwnerId,
+                Owner = owner4
             },
              new Car()
             {
                 Id = 6,
-                BrandId = 5,
+                BrandId = brand5.Id,
+                Brand = brand5,
                 Model = "Polo",
                 BasePrice = 1700,
-                OwnerId = 4
+                OwnerId = owner4.OwnerId,
+                Owner = owner4
             },
              new Car()
             {
                 Id = 7,
-                BrandId = 1,
+                BrandId = brand1.Id,
+                Brand = brand1,
                 Model = "X7",
                 BasePrice = 350000,
-                OwnerId = 5
+                OwnerId = owner5.OwnerId,
+                Owner = owner5
             },
              new Car()
             {
                 Id = 8,
-                BrandId = 1,
+                BrandId = brand1.Id,
+                Brand = brand1,
                 Model = "e30",
                 BasePrice = 18000,
-                OwnerId = 5
+                OwnerId = owner5.OwnerId,
+                Owner = owner5
             },
              new Car()
             {
                 Id = 9,
-                BrandId = 1,
+                BrandId = brand1.Id,
+                Brand = brand1,
                 Model = "120d",
                 BasePrice = 9000,
-                OwnerId = 5
+                OwnerId = owner5.OwnerId,
+                Owner = owner5
             },
              new Car()
             {
                 Id = 10,
-                BrandId = 5,
+                BrandId = brand2.Id,
+                Brand = brand2,
                 Model = "A7",
                 BasePrice = 200000,
-                OwnerId = 1
+                OwnerId = owner1.OwnerId,
+                Owner = owner1
             }
-        }.AsQueryable();
+        };
 
-            var testOwners = new List<Owner>()
-            {
-             new Owner() { OwnerId = 1, Name = "Feri" },
-             new Owner() { OwnerId = 2, Name = "John" },
-             new Owner() { OwnerId = 3, Name = "Mary" },
-             new Owner() { OwnerId = 4, Name = "Luigi" },
-             new Owner() { OwnerId = 5, Name = "Garen" },
-            }.AsQueryable();
 
-            mockBrandRepo.Setup(m => m.GetAll()).Returns(testBrands);
-            mockCarRepo.Setup(m => m.GetAll()).Returns(testCars);
-            mockOwnerRepo.Setup(m => m.GetAll()).Returns(testOwners);
 
-            
-            mockBrandRepo.Setup(m => m.Read(It.IsAny<int>())).Returns((int i) => testBrands.Where(x => x.Id.Equals(i)).FirstOrDefault());
+
+            //var mockBrandRepo = new Mock<IBrandRepository>();
+            //var mockCarRepo = new Mock<ICarRepository>();
+            //var mockOwnerRepo = new Mock<IOwnerRepository>();
+
+            mockBrandRepo.Setup((m) => m.GetAll()).Returns(brands.AsQueryable());
+            mockCarRepo.Setup((m) => m.GetAll()).Returns(testCars.AsQueryable());
+            mockOwnerRepo.Setup(m => m.GetAll()).Returns(owners.AsQueryable());
+
+            //it.isany elfogad adott tipusbol barmit, es a returns resz utan anonim / lambda kifejezes , visszaadja a megfelelo elemet 
+            mockBrandRepo.Setup(m => m.Read(It.IsAny<int>())).Returns((int i) => brands.Where(x => x.Id.Equals(i)).FirstOrDefault());
             mockCarRepo.Setup(m => m.Read(It.IsAny<int>())).Returns((int i) => testCars.Where(x => x.Id.Equals(i)).FirstOrDefault());
-            mockOwnerRepo.Setup(m => m.Read(It.IsAny<int>())).Returns((int i) => testOwners.Where(x => x.OwnerId.Equals(i)).FirstOrDefault());
+            mockOwnerRepo.Setup(m => m.Read(It.IsAny<int>())).Returns((int i) => owners.Where(x => x.OwnerId.Equals(i)).FirstOrDefault());
 
             brandLogic = new BrandLogic(mockBrandRepo.Object);
             carLogic = new CarLogic(mockCarRepo.Object);
@@ -153,14 +185,30 @@ namespace M4YFLU_HFT_2021221.Test
         {
             Car testCar = new Car() { Id = 15, OwnerId = 1, BasePrice = 154312, BrandId = 3, Model = "test" };
             carLogic.Create(testCar);
-            mockCarRepo.Verify(m => m.Create(It.IsAny<Car>()), Times.Once); 
+            mockCarRepo.Verify(m => m.Create(It.IsAny<Car>()), Times.Once); // ez a tenyleges mock ellenorzes, mock teszt | leellenorzi h az adott metodus (create) a megfelelo parameterrel lefutott a megadott mennyisegszer (itt 1x)
+
+        }
+        [Test]
+        public void CreateNonExistingBrand()
+        {
+            Brand testBrand = new Brand() { Id = 30, Name = "Subaru" };
+            brandLogic.Create(testBrand);
+            mockBrandRepo.Verify(m => m.Create(It.IsAny<Brand>()), Times.Once); // ez a tenyleges mock ellenorzes, mock teszt | leellenorzi h az adott metodus (create) a megfelelo parameterrel lefutott a megadott mennyisegszer (itt 1x)
+
+        }
+        [Test]
+        public void CreateNonExistingOwner()
+        {
+            Owner testOwner = new Owner() { Name = "Bill", OwnerId = 10 };
+            ownerLogic.Create(testOwner);
+            mockOwnerRepo.Verify(m => m.Create(It.IsAny<Owner>()), Times.Once); // ez a tenyleges mock ellenorzes, mock teszt | leellenorzi h az adott metodus (create) a megfelelo parameterrel lefutott a megadott mennyisegszer (itt 1x)
 
         }
 
         [Test]
         public void CreateWrongBrand()
         {
-            Assert.Throws<InvalidNameException>(() => brandLogic.Create(null));
+            Assert.Throws<InvalidNameException>(() => brandLogic.Create(null)); // assertet akkor hasznaljuk ha a tesztelni akart metodus eredmenyet ossze akarjuk hasonlitani (az elvart erteket es a tenyleges erteket)
             mockBrandRepo.Verify(m => m.Create(It.IsAny<Brand>()), Times.Never);
 
         }
@@ -168,35 +216,64 @@ namespace M4YFLU_HFT_2021221.Test
         [Test]
         public void MostExpensiveCarOwner()
         {
-            var res = carLogic.OwnerWithTheMostExpensiveCar();
+            Owner res = carLogic.OwnerWithTheMostExpensiveCar();
 
-            var expected = new List<Owner>()
+            Owner exp = new Owner()
             {
-                new Owner{Name = "Garen", OwnerId = 5 }
+                Name = "Garen",
+                OwnerId = 5
             };
 
-            Assert.That(res, Is.EqualTo(expected));
+            Assert.That(res, Is.EqualTo(exp));
 
         }
 
         [Test]
         public void BrandWithTheMostCars()
         {
-            Brand res = brandLogic.BrandWithTheMostCars();
+            var res = brandLogic.BrandWithTheMostCars().FirstOrDefault();
 
-            Brand exp = new Brand()
+            Assert.AreEqual(res, "BMW");
+        }
+
+        [Test]
+        public void VWOwners()
+        {
+            var res = carLogic.VWOwners();
+
+            var exp = new List<Owner>()
             {
-                Name = "BMW",
-                Id = 1,
+                 new Owner{Name = "Mary", OwnerId = 3},
+                 new Owner{Name = "Luigi",OwnerId = 4},
+
+            };
+
+            Assert.AreEqual(res, exp);
+
+
+        }
+
+        [Test]
+        public void LuigisCars()
+        {
+            var res = carLogic.LuigisCars();
+
+            var exp = new List<KeyValuePair<string, string>>()
+            {
+                new KeyValuePair<string, string>("Lada","1200"),
+                new KeyValuePair<string, string>("Volkswagen","Polo")
             };
 
             Assert.That(res, Is.EqualTo(exp));
+
+            ;
+
+
+
+
+
+
         }
-
-
-
-
-
 
     }
 }

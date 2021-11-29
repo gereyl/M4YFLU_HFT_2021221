@@ -48,11 +48,11 @@ namespace M4YFLU_HFT_2021221.Logic
         }
 
 
-        public Brand BrandWithTheMostCars()
+        public IEnumerable<string> BrandWithTheMostCars()
         {
             return (from x in brandRepo.GetAll()
-                    orderby x.Cars descending
-                    select x).FirstOrDefault();
+                    orderby x.Cars.Count descending
+                    select x.Name.ToString());
 
         }
 

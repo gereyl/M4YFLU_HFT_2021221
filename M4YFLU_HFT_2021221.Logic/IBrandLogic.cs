@@ -14,8 +14,7 @@ namespace M4YFLU_HFT_2021221.Logic
         void Delete(int id);
         void Update(Brand brand);
         IEnumerable<Brand> GetAll();
-        Brand BrandWithTheMostCars();
-
+        IEnumerable<string> BrandWithTheMostCars();
 
 
 

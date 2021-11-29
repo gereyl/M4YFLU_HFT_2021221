@@ -25,6 +25,11 @@ namespace M4YFLU_HFT_2021221.Models
             Cars = new HashSet<Car>();
         }
 
+        public override string ToString()
+        {
+            return Name.ToString();
+        }
+
 
     }
 }

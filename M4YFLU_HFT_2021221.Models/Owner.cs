@@ -18,5 +18,18 @@ namespace M4YFLU_HFT_2021221.Models
 
         [NotMapped]
         public virtual ICollection<Car> Cars { get; set; }
+
+        public override bool Equals(object obj)
+        {
+            Owner other = obj as Owner;
+            return this.GetHashCode() == other.GetHashCode();
+        }
+
+        public override int GetHashCode()
+        {
+            return this.Name.GetHashCode() * this.OwnerId;
+        }
+
+
     }
 }

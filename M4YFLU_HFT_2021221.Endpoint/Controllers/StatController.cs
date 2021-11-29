@@ -23,7 +23,7 @@ namespace M4YFLU_HFT_2021221.Endpoint.Controllers
 
         // GET:  stat/ownerwiththemostexpensivecar
         [HttpGet]
-        public IEnumerable<Owner> OwnerWithTheMostExpensiveCar()
+        public Owner OwnerWithTheMostExpensiveCar()
         {
             return cl.OwnerWithTheMostExpensiveCar();
         }
