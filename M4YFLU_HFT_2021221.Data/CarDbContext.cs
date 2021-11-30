@@ -57,11 +57,11 @@ namespace M4YFLU_HFT_2021221.Data
             #endregion
 
             #region creating owners
-            Owner Feri = new Owner() { OwnerId = 1, Name = "Feri" };
-            Owner John = new Owner() { OwnerId = 2, Name = "John" };
-            Owner Mary = new Owner() { OwnerId = 3, Name = "Mary" };
-            Owner Lui = new Owner() { OwnerId = 4, Name = "Luigi" };
-            Owner Garen = new Owner() { OwnerId = 5, Name = "Garen" };
+            Owner Feri = new Owner() { OwnerId = 1, Name = "Feri", Gender = true, City = "Budapest" };
+            Owner John = new Owner() { OwnerId = 2, Name = "John", Gender = true, City = "Nagyknaizsa" };
+            Owner Mary = new Owner() { OwnerId = 3, Name = "Mary", Gender = false, City = "Budapest" };
+            Owner Lui = new Owner() { OwnerId = 4, Name = "Luigi", Gender = true, City = "Egyenesgöröngyös" };
+            Owner Garen = new Owner() { OwnerId = 5, Name = "Garen", Gender = true, City = "Szeged" };
             #endregion
 
             #region creating cars

@@ -43,11 +43,11 @@ namespace M4YFLU_HFT_2021221.Test
 
             //var testOwners = new List<Owner>()
             //{
-            Owner owner1 = new Owner() { OwnerId = 1, Name = "Feri" };
-            Owner owner2 = new Owner() { OwnerId = 2, Name = "John" };
-            Owner owner3 = new Owner() { OwnerId = 3, Name = "Mary" };
-            Owner owner4 = new Owner() { OwnerId = 4, Name = "Luigi" };
-            Owner owner5 = new Owner() { OwnerId = 5, Name = "Garen" };
+            Owner owner1 = new Owner() { OwnerId = 1, Name = "Feri", Gender = true, City = "Budapest" };
+            Owner owner2 = new Owner() { OwnerId = 2, Name = "John", Gender = true, City = "Nagykanizsa" };
+            Owner owner3 = new Owner() { OwnerId = 3, Name = "Mary", Gender = false, City = "Budapest" };
+            Owner owner4 = new Owner() { OwnerId = 4, Name = "Luigi", Gender = true, City = "Egyenesgöröngyös" };
+            Owner owner5 = new Owner() { OwnerId = 5, Name = "Garen", Gender = true, City = "Szeged" };
             List<Owner> owners = new List<Owner>() { owner1, owner2, owner3, owner4, owner5 };
             //}.AsQueryable();
 
@@ -204,6 +204,15 @@ namespace M4YFLU_HFT_2021221.Test
             mockOwnerRepo.Verify(m => m.Create(It.IsAny<Owner>()), Times.Once); // ez a tenyleges mock ellenorzes, mock teszt | leellenorzi h az adott metodus (create) a megfelelo parameterrel lefutott a megadott mennyisegszer (itt 1x)
 
         }
+        [Test]
+        public void SumBasePrices()
+        {
+            int res = carLogic.SumBasePrices();
+
+            int exp = 854700;
+
+            Assert.That(res, Is.EqualTo(exp));
+        }
 
         [Test]
         public void CreateWrongBrand()
@@ -266,14 +275,27 @@ namespace M4YFLU_HFT_2021221.Test
 
             Assert.That(res, Is.EqualTo(exp));
 
-            ;
-
-
-
-
-
-
         }
+
+        [Test]
+        public void OwnersFromBp()
+        {
+            var res = carLogic.OwnersFromBp();
+            ;
+            var exp = new List<KeyValuePair<Owner, string>>()
+            {
+                new KeyValuePair<Owner, string >(new Owner(){Name = "Feri", OwnerId = 1}, "BMW"),
+                new KeyValuePair<Owner, string >(new Owner(){Name = "Mary", OwnerId = 3}, "Mercedes"),
+                new KeyValuePair<Owner, string >(new Owner(){Name = "Mary", OwnerId = 3}, "Volkswagen"),
+                new KeyValuePair<Owner, string >(new Owner(){Name = "Feri", OwnerId = 1}, "Audi")
+
+            };
+
+            Assert.That(res, Is.EqualTo(exp));
+        }
+
+
+
 
     }
 }

@@ -23,7 +23,7 @@ namespace M4YFLU_HFT_2021221.Client
             var brands = rest.Get<Brand>("brand");
             var cars = rest.Get<Car>("car");
 
-            IEnumerable<Owner> res = rest.GetSingle<IEnumerable<Owner>>("stat/ownerwiththemostexpensivecar");
+            //IEnumerable<Owner> res = rest.GetSingle<IEnumerable<Owner>>("stat/ownerwiththemostexpensivecar");
 
             ;
 

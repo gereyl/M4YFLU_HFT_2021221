@@ -63,15 +63,31 @@ namespace M4YFLU_HFT_2021221.Logic
 
         public IEnumerable<KeyValuePair<string, string>> LuigisCars()
         {
+            return from x in carRepo.GetAll()
+                   where x.Owner.Name == "Luigi"
+                   select new KeyValuePair<string, string>
+                       (
+                       x.Brand.ToString(),
+                       x.Model
+                       );
+        }
+
+        public IEnumerable<KeyValuePair<Owner, string>> OwnersFromBp()
+        {
+            return from x in carRepo.GetAll()
+                   where x.Owner.City == "Budapest"
+                   select new KeyValuePair<Owner, string>
+                   (
+                       x.Owner,
+                       x.Brand.Name
+                   );
+
+        }
+
+        public int SumBasePrices()
+        {
             return (from x in carRepo.GetAll()
-                    where x.Owner.Name == "Luigi"
-                    select new KeyValuePair<string, string>
-                        (
-                        x.Brand.ToString(),
-                        x.Model
-                        ));
-
-
+                    select x.BasePrice).Sum();
         }
 
 

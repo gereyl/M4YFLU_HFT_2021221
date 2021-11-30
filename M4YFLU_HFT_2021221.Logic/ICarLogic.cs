@@ -18,6 +18,7 @@ namespace M4YFLU_HFT_2021221.Logic
         IEnumerable<Owner> VWOwners();
         IEnumerable<KeyValuePair<string, string>> LuigisCars();
 
+        public int SumBasePrices();
 
     }
 }

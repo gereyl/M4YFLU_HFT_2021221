@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace M4YFLU_HFT_2021221.Models
 {
@@ -24,6 +25,7 @@ namespace M4YFLU_HFT_2021221.Models
         public int BrandId { get; set; }
 
         [NotMapped]
+        [JsonIgnore]
         public virtual Brand Brand { get; set; }
 
         [NotMapped]
