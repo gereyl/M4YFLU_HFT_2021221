@@ -21,12 +21,12 @@ namespace M4YFLU_HFT_2021221.Endpoint.Controllers
             this.cl = cl;
         }
 
-        // GET:  stat/ownerwiththemostexpensivecar
-        [HttpGet]
-        public Owner OwnerWithTheMostExpensiveCar()
-        {
-            return cl.OwnerWithTheMostExpensiveCar();
-        }
+        //// GET:  stat/ownerwiththemostexpensivecar
+        //[HttpGet]
+        //public Owner OwnerWithTheMostExpensiveCar()
+        //{
+        //    return cl.OwnerWithTheMostExpensiveCar();
+        //}
 
 
 

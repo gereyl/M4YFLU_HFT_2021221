@@ -225,24 +225,21 @@ namespace M4YFLU_HFT_2021221.Test
         [Test]
         public void MostExpensiveCarOwner()
         {
-            Owner res = carLogic.OwnerWithTheMostExpensiveCar();
+            IEnumerable<KeyValuePair<string, string>> res = carLogic.OwnerWithTheMostExpensiveCar();
 
-            Owner exp = new Owner()
+            IEnumerable<KeyValuePair<string, string>> exp = new List<KeyValuePair<string, string>>()
             {
-                Name = "Garen",
-                OwnerId = 5
+                new KeyValuePair<string, string>("Garen","X7")
             };
+
+            //Owner exp = new Owner()
+            //{
+            //    Name = "Garen",
+            //    OwnerId = 5
+            //};
 
             Assert.That(res, Is.EqualTo(exp));
 
-        }
-
-        [Test]
-        public void BrandWithTheMostCars()
-        {
-            var res = brandLogic.BrandWithTheMostCars().FirstOrDefault();
-
-            Assert.AreEqual(res, "BMW");
         }
 
         [Test]
@@ -292,6 +289,24 @@ namespace M4YFLU_HFT_2021221.Test
             };
 
             Assert.That(res, Is.EqualTo(exp));
+        }
+
+
+        [Test]
+        public void ExpensiveCars()
+        {
+            var res = carLogic.ExpensiveCars();
+
+            var exp = new List<KeyValuePair<string, int>>()
+            {
+                new KeyValuePair<string, int>("SL200",200000),
+                new KeyValuePair<string, int>("X7",350000),
+                new KeyValuePair<string, int>("A7",200000),
+            };
+
+
+            Assert.That(res, Is.EqualTo(exp));
+
         }
 
 

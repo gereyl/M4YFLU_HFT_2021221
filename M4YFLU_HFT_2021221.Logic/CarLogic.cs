@@ -46,11 +46,11 @@ namespace M4YFLU_HFT_2021221.Logic
             carRepo.Update(car);
         }
 
-        public Owner OwnerWithTheMostExpensiveCar()
+        public IEnumerable<KeyValuePair<string, string>> OwnerWithTheMostExpensiveCar()
         {
             return (from x in carRepo.GetAll()
                     orderby x.BasePrice descending
-                    select x.Owner).FirstOrDefault();
+                    select new KeyValuePair<string, string>(x.Owner.Name, x.Model)).Take(1);
         }
 
         public IEnumerable<Owner> VWOwners()
@@ -84,11 +84,25 @@ namespace M4YFLU_HFT_2021221.Logic
 
         }
 
+
+
+        public IEnumerable<KeyValuePair<string, int>> ExpensiveCars()
+        {
+            return from x in carRepo.GetAll()
+                   where x.BasePrice >= 150000
+                   select new KeyValuePair<string, int>(
+                       x.Model, x.BasePrice
+                       );
+
+        }
+
+
         public int SumBasePrices()
         {
             return (from x in carRepo.GetAll()
                     select x.BasePrice).Sum();
         }
+
 
 
 
