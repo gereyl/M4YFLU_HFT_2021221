@@ -168,6 +168,7 @@ namespace M4YFLU_HFT_2021221.Client
             Console.WriteLine("4: Update");
             Console.WriteLine("5: GetAll");
             Console.WriteLine("6: Back to main menu");
+            Console.WriteLine("7: NON-CRUD methods");
             int x = int.Parse(Console.ReadLine());
 
 
@@ -234,6 +235,10 @@ namespace M4YFLU_HFT_2021221.Client
             else if (x == 6)
             {
                 Menu(rest);
+            }
+            else if (x == 7)
+            {
+                NonCrudMethods(rest);
             }
             else
             {
@@ -325,7 +330,78 @@ namespace M4YFLU_HFT_2021221.Client
         }
 
 
+        static void NonCrudMethods(RestService rest)
+        {
+            Console.WriteLine("Select a method: ");
+            Console.WriteLine("1: The most expensive car, and it's owner");
+            Console.WriteLine("2: Volkswagen owners");
+            Console.WriteLine("3: Luigi's cars");
+            Console.WriteLine("4: Owners from Budapest");
+            Console.WriteLine("5: Expensive cars");
+            Console.WriteLine("6: Back to main menu");
+            int x = int.Parse(Console.ReadLine());
 
+            if (x == 1)
+            {
+                var ownerwiththemostexpensivecar = rest.GetSingle<IEnumerable<KeyValuePair<string, string>>>("stat/ownerwiththemostexpensivecar");
+                foreach (var item in ownerwiththemostexpensivecar)
+                {
+                    Console.WriteLine("\n" + item + "\n");
+                }
+                NonCrudMethods(rest);
+            }
+            else if (x == 2)
+            {
+                var vwowners = rest.GetSingle<IEnumerable<Owner>>("stat/vwowners");
+                foreach (var item in vwowners)
+                {
+                    Console.WriteLine("\n" + item + "\n");
+                }
+                NonCrudMethods(rest);
+
+            }
+            else if (x == 3)
+            {
+                var luigiscars = rest.GetSingle<IEnumerable<KeyValuePair<string, string>>>("stat/luigiscars");
+                foreach (var item in luigiscars)
+                {
+                    Console.WriteLine("\n" + item + "\n");
+                }
+                NonCrudMethods(rest);
+
+            }
+            else if (x == 4)
+            {
+                var ownersfrombp = rest.GetSingle<IEnumerable<KeyValuePair<Owner, string>>>("stat/ownersfrombp");
+                foreach (var item in ownersfrombp)
+                {
+                    Console.WriteLine("\n" + item + "\n");
+                }
+
+                NonCrudMethods(rest);
+            }
+            else if (x == 5)
+            {
+                var expensivecars = rest.GetSingle<IEnumerable<KeyValuePair<string, int>>>("stat/expensivecars");
+                foreach (var item in expensivecars)
+                {
+                    Console.WriteLine("\n" + item + "\n");
+                }
+                NonCrudMethods(rest);
+            }
+            else if (x == 6)
+            {
+                Menu(rest);
+            }
+            else
+            {
+                Console.WriteLine("invalid option!");
+                Menu(rest);
+            }
+
+
+
+        }
 
     }
 }
