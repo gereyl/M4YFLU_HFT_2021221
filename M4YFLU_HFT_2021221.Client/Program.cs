@@ -50,7 +50,6 @@ namespace M4YFLU_HFT_2021221.Client
         static void Menu(RestService rest)
         {
 
-
             Console.WriteLine("Choose from the tables below: ");
             Console.WriteLine("1:  Brand table");
             Console.WriteLine("2:  Car table");
@@ -114,9 +113,8 @@ namespace M4YFLU_HFT_2021221.Client
             else if (x == 2)
             {
                 Console.WriteLine("Enter an Id: ");
-                string q = Console.ReadLine();
-                int w = int.Parse(q);
-                rest.Delete(w, $"/brand{q}");
+                int q = int.Parse(Console.ReadLine());
+                rest.Delete(q, "/brand");
                 Brandtable(rest);
             }
             else if (x == 3)
@@ -131,9 +129,11 @@ namespace M4YFLU_HFT_2021221.Client
             else if (x == 4)
             {
                 Console.WriteLine("Enter an Id: ");
-                string q = Console.ReadLine();
-                rest.Put<Brand>(rest.GetSingle<Brand>($"/brand/{q}"), "/brand");
-                Brandtable(rest);
+                int y = int.Parse(Console.ReadLine());
+                var res = rest.GetSingle<Brand>($"/brand/{y}");
+                Console.WriteLine("Enter Name:   ");
+                res.Name = Console.ReadLine();
+                rest.Put(res, "/brand");
             }
             else if (x == 5)
             {
