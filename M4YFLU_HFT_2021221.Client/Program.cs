@@ -41,7 +41,7 @@ namespace M4YFLU_HFT_2021221.Client
 
             Menu(rest);
 
-            var q = rest.Get<Brand>("/brand");
+            var q = rest.Get<Owner>("/owner");
             ;
 
         }
@@ -49,6 +49,7 @@ namespace M4YFLU_HFT_2021221.Client
 
         static void Menu(RestService rest)
         {
+
 
             Console.WriteLine("Choose from the tables below: ");
             Console.WriteLine("1:  Brand table");
@@ -66,12 +67,12 @@ namespace M4YFLU_HFT_2021221.Client
             }
             else if (x == 2)
             {
-                CarTable();
+                CarTable(rest);
                 //var q = rest.Get<Brand>("car");
             }
             else if (x == 3)
             {
-                OwnerTable();
+                OwnerTable(rest);
                 //var q = rest.Get<Brand>("owner");
             }
             else if (x == 4)
@@ -83,9 +84,6 @@ namespace M4YFLU_HFT_2021221.Client
                 Console.WriteLine("invalid option! Try again: ");
                 Menu(rest);
             }
-
-
-
         }
 
         static void Brandtable(RestService rest)
@@ -98,8 +96,6 @@ namespace M4YFLU_HFT_2021221.Client
             Console.WriteLine("5: GetAll");
             Console.WriteLine("6: Back to main menu");
             int x = int.Parse(Console.ReadLine());
-
-
 
 
             if (x == 1)
@@ -137,7 +133,15 @@ namespace M4YFLU_HFT_2021221.Client
             }
             else if (x == 5)
             {
-                rest.Get<Brand>("/brand");
+                var q = rest.Get<Brand>("/brand");
+                int idx = 0;
+                foreach (var item in q)
+                {
+                    Console.Write("ID: " + item.Id + "\t");
+                    Console.Write("Brand name: " + item + "\n\n");
+                    idx++;
+
+                }
                 Brandtable(rest);
             }
             else if (x == 6)
@@ -154,13 +158,169 @@ namespace M4YFLU_HFT_2021221.Client
 
         }
 
-        static void CarTable()
+        static void CarTable(RestService rest)
         {
+
+            Console.WriteLine("Select a method from the Car table: ");
+            Console.WriteLine("1: Create ");
+            Console.WriteLine("2: Delete");
+            Console.WriteLine("3: Read");
+            Console.WriteLine("4: Update");
+            Console.WriteLine("5: GetAll");
+            Console.WriteLine("6: Back to main menu");
+            int x = int.Parse(Console.ReadLine());
+
+
+            if (x == 1)
+            {
+                Console.WriteLine("Add a new model name: ");
+                string model = Console.ReadLine();
+                Console.WriteLine("BrandId: ");
+                int brandId = int.Parse(Console.ReadLine());
+                Console.WriteLine("Baseprice: ");
+                int bp = int.Parse(Console.ReadLine());
+                Console.WriteLine("OwnerId: ");
+                int ownerId = int.Parse(Console.ReadLine());
+
+                Car c = new Car() { Model = model, BrandId = brandId, BasePrice = bp, OwnerId = ownerId };
+                rest.Post<Car>(c, "/car");
+                CarTable(rest);
+            }
+            else if (x == 2)
+            {
+                Console.WriteLine("Enter an Id: ");
+                int q = int.Parse(Console.ReadLine());
+                rest.Delete(q, "/car");
+                CarTable(rest);
+            }
+            else if (x == 3)
+            {
+                Console.WriteLine("Enter an Id: ");
+                string q = Console.ReadLine();
+                var c = rest.GetSingle<Car>($"/car/{q}");
+                Console.WriteLine(c);
+                CarTable(rest);
+
+            }
+            else if (x == 4)
+            {
+                Console.WriteLine("Enter an Id: ");
+                int y = int.Parse(Console.ReadLine());
+                var res = rest.GetSingle<Car>($"/car/{y}");
+                Console.WriteLine("Enter Name:   ");
+                res.Model = Console.ReadLine();
+                Console.WriteLine("Baseprice: ");
+                res.BasePrice = int.Parse(Console.ReadLine());
+                Console.WriteLine("BrandId: ");
+                res.BrandId = int.Parse(Console.ReadLine());
+                Console.WriteLine("OwnerId: ");
+                res.OwnerId = int.Parse(Console.ReadLine());
+                rest.Put(res, "/car");
+                CarTable(rest);
+            }
+            else if (x == 5)
+            {
+                var q = rest.Get<Car>("/car");
+                int idx = 0;
+                foreach (var item in q)
+                {
+                    Console.Write("ID: " + item.Id + "\t");
+                    Console.Write("\t Model: " + item + "\n\n");
+                    idx++;
+
+                }
+                CarTable(rest);
+            }
+            else if (x == 6)
+            {
+                Menu(rest);
+            }
+            else
+            {
+                Console.WriteLine("invalid option!");
+                Menu(rest);
+            }
+
 
         }
 
-        static void OwnerTable()
+        static void OwnerTable(RestService rest)
         {
+
+
+            Console.WriteLine("Select a method from the Owner table: ");
+            Console.WriteLine("1: Create ");
+            Console.WriteLine("2: Delete");
+            Console.WriteLine("3: Read");
+            Console.WriteLine("4: Update");
+            Console.WriteLine("5: GetAll");
+            Console.WriteLine("6: Back to main menu");
+            int x = int.Parse(Console.ReadLine());
+
+
+            if (x == 1)
+            {
+                Console.WriteLine("Add a new Owner name: ");
+                string name = Console.ReadLine();
+                Console.WriteLine("City: ");
+                string city = Console.ReadLine();
+
+                Owner o = new Owner() { Name = name, City = city };
+                rest.Post<Owner>(o, "/owner");
+                OwnerTable(rest);
+            }
+            else if (x == 2)
+            {
+                Console.WriteLine("Enter an Id: ");
+                int q = int.Parse(Console.ReadLine());
+                rest.Delete(q, "/owner");
+                OwnerTable(rest);
+            }
+            else if (x == 3)
+            {
+                Console.WriteLine("Enter an Id: ");
+                string q = Console.ReadLine();
+                var c = rest.GetSingle<Owner>($"/owner/{q}");
+                Console.WriteLine(c);
+                OwnerTable(rest);
+
+            }
+            else if (x == 4)
+            {
+                Console.WriteLine("Enter an Id: ");
+                int y = int.Parse(Console.ReadLine());
+                var res = rest.GetSingle<Owner>($"/owner/{y}");
+                Console.WriteLine("Enter Name:   ");
+                res.Name = Console.ReadLine();
+                Console.WriteLine("Enter a city name: ");
+                res.City = Console.ReadLine();
+                rest.Put(res, "/owner");
+                OwnerTable(rest);
+            }
+            else if (x == 5)
+            {
+                var q = rest.Get<Owner>("/owner");
+                int idx = 0;
+                foreach (var item in q)
+                {
+                    Console.Write("ID: " + item.OwnerId + "\t");
+                    Console.Write("\t Model: " + item + "\n\n");
+                    idx++;
+
+                }
+                OwnerTable(rest);
+            }
+            else if (x == 6)
+            {
+                Menu(rest);
+            }
+            else
+            {
+                Console.WriteLine("invalid option!");
+                Menu(rest);
+            }
+
+
 
         }
 
