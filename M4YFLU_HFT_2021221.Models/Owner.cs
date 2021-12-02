@@ -36,6 +36,10 @@ namespace M4YFLU_HFT_2021221.Models
             return this.Name.GetHashCode() * this.OwnerId;
         }
 
+        public override string ToString()
+        {
+            return this.Name;
+        }
 
 
     }
